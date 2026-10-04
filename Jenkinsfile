@@ -66,6 +66,20 @@ pipeline {
                 sh 'docker compose build'
             }
         }
+
+stage('Deploy Application') {
+    steps {
+        echo 'Deploying Logistics application'
+        sh 'docker compose up -d'
+    }
+}
+
+stage('Verify Deployment') {
+    steps {
+        echo 'Verifying deployed containers'
+        sh 'docker compose ps'
+    }
+}
     }
 
     post {
