@@ -2,9 +2,14 @@
 pipeline {
     agent any
 
+    environment {
+        PATH = "/Users/aryankashid/.docker/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+    }
+
     options {
         timestamps()
         disableConcurrentBuilds()
+        skipDefaultCheckout(true)
     }
 
     stages {
@@ -24,8 +29,13 @@ pipeline {
                 sh 'git --version'
                 sh 'node --version'
                 sh 'npm --version'
+
+                echo 'Checking Docker CLI'
                 sh 'docker --version'
                 sh 'docker compose version'
+
+                echo 'Checking Docker Engine connectivity'
+                sh 'docker info'
             }
         }
 
