@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Logistics</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body>
+    <div class="sidebar">
+        <div class="logo">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path
+                    d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z">
+                </path>
+                <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                <line x1="12" y1="22.08" x2="12" y2="12"></line>
+            </svg>
+            <span>LogistiQ</span>
+        </div>
+        <nav>
+            <a href="#" class="nav-item active" data-target="home-section"><i data-lucide="layout-dashboard"></i>
+                Dashboard</a>
+            <a href="#" class="nav-item" data-target="add-customer-section"><i data-lucide="user-plus"></i> Add
+                Customer</a>
+            <a href="#" class="nav-item" data-target="create-shipment-section"><i data-lucide="package-plus"></i> Create
+                Shipment</a>
+            <a href="#" class="nav-item" data-target="track-shipment-section"><i data-lucide="search"></i> Track
+                Shipment</a>
+            <a href="#" class="nav-item" data-target="view-shipments-section"><i data-lucide="package"></i> All
+                Shipments</a>
+        </nav>
+
+        <div class="sidebar-help-card">
+            <i data-lucide="life-buoy"></i>
+            <h4>Need Help?</h4>
+            <p>Our support team is available 24/7 to assist you.</p>
+            <button class="btn btn-small btn-primary">Contact Us</button>
+        </div>
+    </div>
+
+    <main class="content">
+        <!-- Notification Toast -->
+        <div id="toast" class="toast hidden">
+            <i data-lucide="info"></i>
+            <span class="toast-msg">Message</span>
+        </div>
+
+        <!-- 1. Home Section -->
+        <section id="home-section" class="view-section active">
+            <header class="section-header">
+                <h1>Overview</h1>
+                <p>Welcome back, here's what's happening with your supply chain.</p>
+            </header>
+
+            <div class="hero-image">
+                <div class="hero-content">
+                    <div class="hero-text">
+                        <div class="hero-badge">NEW FEATURE</div>
+                        <h2>Next-Gen Global Logistics</h2>
+                        <p>Streamline your supply chain with real-time tracking, seamless shipping, and automated
+                            dashboard insights built for modern enterprises.</p>
+                        <div class="hero-cta">
+                            <button class="btn btn-primary cta-track"><i data-lucide="crosshair"></i> Track Order
+                                Now</button>
+                            <button class="btn btn-secondary cta-create"><i data-lucide="zap"></i> Ship Faster</button>
+                        </div>
+                    </div>
+                    <div class="hero-graphic">
+                        <img src="assets/logistics_hero.png" alt="Logistics Dashboard" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon-bg bg-indigo-light"><i data-lucide="boxes" class="text-indigo"></i></div>
+                    <h3>Total Shipments</h3>
+                    <div class="value" id="total-shipments-count">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon-bg bg-blue-light"><i data-lucide="truck" class="text-blue"></i></div>
+                    <h3>In Transit</h3>
+                    <div class="value" id="transit-shipments-count">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon-bg bg-emerald-light"><i data-lucide="check-circle" class="text-emerald"></i>
+                    </div>
+                    <h3>Delivered</h3>
+                    <div class="value" id="delivered-shipments-count">0</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. Add Customer Section -->
+        <section id="add-customer-section" class="view-section hidden">
+            <header class="section-header">
+                <h1>Add Customer</h1>
+                <p>Register a new partner or customer for shipping</p>
+            </header>
+            <div class="form-container">
+                <div class="form-icon-top"><i data-lucide="user-plus"></i></div>
+                <form id="add-customer-form">
+                    <div class="form-group">
+                        <label for="c-name">Full Name</label>
+                        <div class="input-icon-wrapper">
+                            <i data-lucide="user"></i>
+                            <input type="text" id="c-name" required placeholder="e.g. John Doe">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="c-address">Operational Address</label>
+                        <div class="input-icon-wrapper">
+                            <i data-lucide="map-pin"></i>
+                            <input type="text" id="c-address" required placeholder="Full Address">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="c-phone">Phone Number</label>
+                        <div class="input-icon-wrapper">
+                            <i data-lucide="phone"></i>
+                            <input type="text" id="c-phone" required placeholder="e.g. +1 555-0100">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Save Customer Details</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- 3. Create Shipment Section -->
+        <section id="create-shipment-section" class="view-section hidden">
+            <header class="section-header">
+                <h1>Create Shipment</h1>
+                <p>Schedule and dispatch a new logistics request</p>
+            </header>
+            <div class="form-container">
+                <div class="form-icon-top"><i data-lucide="package-plus"></i></div>
+                <form id="create-shipment-form">
+                    <div class="form-group">
+                        <label for="s-customer">Select Customer</label>
+                        <select id="s-customer" required>
+                            <option value="" disabled selected>Select a customer...</option>
+                        </select>
+                    </div>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="s-weight">Gross Weight (kg)</label>
+                            <div class="input-icon-wrapper">
+                                <i data-lucide="scale"></i>
+                                <input type="number" step="0.01" id="s-weight" required placeholder="e.g. 15.5">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="s-date">Dispatch Date</label>
+                            <input type="date" id="s-date" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="s-status">Initial Status</label>
+                        <select id="s-status" required>
+                            <option value="Pending">Pending Validation</option>
+                            <option value="Shipment Picked Up">Courier Picked Up</option>
+                            <option value="In Transit">In Transit</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Deploy Shipment</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- 4. Track Shipment Section -->
+        <section id="track-shipment-section" class="view-section hidden">
+            <header class="section-header">
+                <h1>Track & Trace</h1>
+                <p>Real-time location and status of your active shipments</p>
+            </header>
+
+            <div class="search-bar-large card" style="display: flex; gap: 16px; padding: 24px; margin-bottom: 32px;">
+                <div class="input-icon-wrapper" style="flex: 1;">
+                    <i data-lucide="crosshair"></i>
+                    <input type="number" id="track-id-input" placeholder="Enter Tracking ID (e.g. 1)"
+                        style="font-size: 1.1rem; padding: 18px 20px 18px 52px; width: 100%;">
+                </div>
+                <button id="btn-track-search" class="btn btn-primary" style="padding: 0 40px; font-size: 1.1rem;">Locate
+                    Panel</button>
+            </div>
+
+            <div id="tracking-result" class="hidden">
+                <!-- Visual Progress -->
+                <div class="tracking-progress card" style="margin-bottom: 24px; padding: 40px;">
+                    <div class="progress-track" id="progress-track">
+                        <!-- Filled dynamically by JS or controlled via classes -->
+                        <div class="progress-step" data-step="1">
+                            <div class="step-icon"><i data-lucide="clipboard-list"></i></div>
+                            <span>Pending</span>
+                        </div>
+                        <div class="progress-line"></div>
+                        <div class="progress-step" data-step="2">
+                            <div class="step-icon"><i data-lucide="package-check"></i></div>
+                            <span>Picked Up</span>
+                        </div>
+                        <div class="progress-line"></div>
+                        <div class="progress-step" data-step="3">
+                            <div class="step-icon"><i data-lucide="truck"></i></div>
+                            <span>In Transit</span>
+                        </div>
+                        <div class="progress-line"></div>
+                        <div class="progress-step" data-step="4">
+                            <div class="step-icon"><i data-lucide="check-circle-2"></i></div>
+                            <span>Delivered</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tracking-summary card" style="margin-bottom: 24px;">
+                    <div class="summary-left">
+                        <div class="summary-icon"><i data-lucide="user"></i></div>
+                        <div>
+                            <h3 id="ts-customer">Customer: -</h3>
+                            <p class="text-muted" id="ts-phone">Phone: -</p>
+                        </div>
+                    </div>
+                    <div class="summary-middle"
+                        style="display: flex; gap: 40px; padding: 0 40px; border-left: 1px solid var(--border-color);">
+                        <div>
+                            <p class="text-muted" style="font-size: 0.85rem; text-transform: uppercase;">Weight</p>
+                            <h4 id="ts-weight" style="font-size: 1.1rem;">- kg</h4>
+                        </div>
+                        <div>
+                            <p class="text-muted" style="font-size: 0.85rem; text-transform: uppercase;">Ship Date</p>
+                            <h4 id="ts-date" style="font-size: 1.1rem;">-</h4>
+                        </div>
+                    </div>
+                    <div class="status-badge-container">
+                        <span id="ts-status" class="badge" style="font-size: 1rem; padding: 10px 20px;">Status</span>
+                    </div>
+                </div>
+
+                <div class="tracking-layout">
+                    <!-- Timeline -->
+                    <div class="timeline-container card">
+                        <h3><i data-lucide="activity"></i> Transit History</h3>
+                        <div class="timeline" id="tracking-timeline">
+                            <!-- Populated by JS -->
+                        </div>
+                    </div>
+
+                    <!-- Update Status -->
+                    <div class="update-status-container card" style="align-self: start;">
+                        <h3><i data-lucide="edit-3"></i> Add Tracking Update</h3>
+                        <form id="add-tracking-event-form">
+                            <input type="hidden" id="tu-shipment-id">
+                            <div class="form-group">
+                                <label for="tu-status">Latest Checkpoint</label>
+                                <input type="text" id="tu-status" required placeholder="e.g. Arrived at NY Hub"
+                                    list="default-statuses">
+                                <datalist id="default-statuses">
+                                    <option value="Shipment Picked Up">
+                                    <option value="In Transit">
+                                    <option value="Customs Cleared">
+                                    <option value="Out for Delivery">
+                                    <option value="Delivered">
+                                </datalist>
+                            </div>
+                            <button type="submit" class="btn btn-secondary" style="width:100%"><i
+                                    data-lucide="upload-cloud"></i> Sync Update</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. View Shipments Section -->
+        <section id="view-shipments-section" class="view-section hidden">
+            <header class="section-header">
+                <h1>Shipment Registry</h1>
+                <p>A complete overview of all globally registered consignments</p>
+            </header>
+
+            <div class="table-container card">
+                <table id="shipments-table">
+                    <thead>
+                        <tr>
+                            <th>ID Code</th>
+                            <th>Partner Name</th>
+                            <th>Weight</th>
+                            <th>Dispatch Date</th>
+                            <th>Tracking Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="shipments-tbody">
+                        <!-- Populated via JS -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <script src="app.js"></script>
+    <script>
+        // Initialize Icons
+        lucide.createIcons();
+
+        // Bind new Hero buttons
+        document.addEventListener('DOMContentLoaded', () => {
+            const trackBtn = document.querySelector('.cta-track');
+            const createBtn = document.querySelector('.cta-create');
+            if (trackBtn) trackBtn.addEventListener('click', () => document.querySelector('.nav-item[data-target="track-shipment-section"]').click());
+            if (createBtn) createBtn.addEventListener('click', () => document.querySelector('.nav-item[data-target="create-shipment-section"]').click());
+        });
+
+        // Ensure toast message is injected properly
+        const originalShowToast = window.showToast;
+        window.showToast = function (msg, isError = false) {
+            const toast = document.getElementById('toast');
+            toast.querySelector('.toast-msg').innerText = msg;
+            toast.className = `toast ${isError ? 'error' : ''}`;
+            if (isError) {
+                toast.querySelector('i').setAttribute('data-lucide', 'alert-circle');
+            } else {
+                toast.querySelector('i').setAttribute('data-lucide', 'check-circle');
+            }
+            lucide.createIcons({ name: isError ? 'alert-circle' : 'check-circle' });
+            toast.classList.remove('hidden');
+            setTimeout(() => {
+                toast.classList.add('hidden');
+            }, 3000);
+        }
+    </script>
+</body>
+
+</html>

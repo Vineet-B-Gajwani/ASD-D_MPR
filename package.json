@@ -1,0 +1,16 @@
+{
+  "name": "global-logistics-system",
+  "version": "1.0.0",
+  "description": "Global Logistics and Tracking System",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^16.6.1",
+    "express": "^4.22.1",
+    "mysql2": "^3.20.0"
+  }
+}
