@@ -6,7 +6,6 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: 123456789
       MYSQL_DATABASE: logistics_db
-    
     volumes:
       - mysql_data:/var/lib/mysql
       - ./database/schema.sql:/docker-entrypoint-initdb.d/schema.sql:ro
@@ -24,6 +23,18 @@ services:
       DB_NAME: logistics_db
       PORT: 3000
     depends_on:
+      - mysql
+
+  nagios:
+    image: jasonrivers/nagios:latest
+    container_name: logistics-nagios
+    restart: unless-stopped
+    ports:
+      - "8081:80"
+    volumes:
+      - ./nagios/app.cfg:/opt/nagios/etc/conf.d/app.cfg:ro
+    depends_on:
+      - app
       - mysql
 
 volumes:
